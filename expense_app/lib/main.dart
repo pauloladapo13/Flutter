@@ -1,6 +1,7 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors
 import 'package:flutter/material.dart';
 import './transaction.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,23 +47,43 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: const Text('Expense App'),
+        title: const Text('Bank Transations'),
+        backgroundColor: Colors.purpleAccent,
+        foregroundColor: Colors.black,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.starts,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
             child: Card(
-              color: Colors.blue,
+              color: Colors.purpleAccent,
               child: Text('CHART!'),
               elevation: 5,
             ),
           ),
-          Container(
-            child: Card(
-              color: Colors.red,
-              child: Text('LIST OF TX'),
+          Card(
+            elevation: 5,
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Title'),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Amount'),
+                  ),
+                  TextButton(
+                    child: Text('Add Transaction'),
+                    style: TextButton.styleFrom(
+                      primary: Colors.purpleAccent,
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
           ),
           Column(
@@ -76,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         horizontal: 20,
                       ),
                       child: Text(
-                        tx.amount.toString(),
+                        '\$${tx.amount}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -103,7 +124,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         Text(
-                          tx.date.toString(),
+                          // tx.date.toString(), is another option,
+                          // DateFormat().format(tx.date),
+                          // DateFormat('yyyy/MM/dd').format(tx.date),
+                          DateFormat.yMMMd().format(tx.date),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
